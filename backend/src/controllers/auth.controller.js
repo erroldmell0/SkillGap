@@ -9,7 +9,6 @@ const { get } = require('mongoose');
  * @description register a new user, expects username, email and password in the request body
  * @access Public
  */
-
 async function registerUserController(req, res) {
     const {username, email, password} = req.body;
 
@@ -47,7 +46,6 @@ async function registerUserController(req, res) {
  * @description login a user, expects username and password in the request body
  * @access Public
  */
-
 async function loginUserController(req, res) {
     const { email, password} = req.body;
 

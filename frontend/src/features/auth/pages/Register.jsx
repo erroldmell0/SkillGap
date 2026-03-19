@@ -1,10 +1,27 @@
-import {Link} from "react-router"
+import {Link, useNavigate} from "react-router"
+import { useState } from "react"
 import Leftpanel from "./Leftpanel"
 import "../auth.form.scss"
+import { useAuth } from "../hooks/useAuth"
+
 
 const Register = () => {
-  const handleSubmit = (e) => {
+  const navigate = useNavigate()
 
+  const {loading, handleRegister} = useAuth()
+  
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await handleRegister({username, email, password})
+    navigate("/login")
+  }
+
+  if(loading) {
+    return (<main><h1>Loading...</h1></main>)
   }
 
   return (
@@ -27,7 +44,8 @@ const Register = () => {
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
                   <circle cx="12" cy="7" r="4"/>
                 </svg>
-                <input type="text" id='username' name='username' placeholder="Choose a username"/>
+                <input type="text" id='username' name='username' placeholder="Choose a username"
+                onChange={(e) => setUsername(e.target.value)}/>
               </div>
             </div>
 
@@ -38,7 +56,8 @@ const Register = () => {
                   <rect x="2" y="4" width="20" height="16" rx="2"/>
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                 </svg>
-                <input type="email" id='email' name='email' placeholder="Enter email address"/>
+                <input type="email" id='email' name='email' placeholder="Enter email address"
+                onChange={(e) => setEmail(e.target.value)}/>
               </div>
             </div>
 
@@ -49,7 +68,8 @@ const Register = () => {
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
-                <input type="password" id='password' name='password' placeholder="Create a password"/>
+                <input type="password" id='password' name='password' placeholder="Create a password"
+                onChange={(e) => setPassword(e.target.value)}/>
               </div>
             </div>
 

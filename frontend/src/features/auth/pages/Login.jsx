@@ -1,10 +1,25 @@
-import {Link} from "react-router"
+import {Link, useNavigate} from "react-router"
 import "../auth.form.scss"
 import Leftpanel from "./Leftpanel"
+import { useAuth } from "../hooks/useAuth"
+import { useState } from "react"
 
 const Login = () => {
-  const handleSubmit = (e) => {
+  const navigate = useNavigate()
 
+  const {loading, handleLogin} = useAuth()
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await handleLogin({email, password})
+    navigate("/")
+  }
+
+  if(loading) {
+    return (<main><h1>Loading...</h1></main>)
   }
 
   return (
@@ -27,7 +42,7 @@ const Login = () => {
                   <rect x="2" y="4" width="20" height="16" rx="2"/>
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                 </svg>
-                <input type="email" id='email' name='email' placeholder="Enter email address"/>
+                <input type="email" id='email' name='email' placeholder="Enter email address" onChange={(e) => setEmail(e.target.value)}/>
               </div>
             </div>
 
@@ -38,7 +53,7 @@ const Login = () => {
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
-                <input type="password" id='password' name='password' placeholder="Enter password"/>
+                <input type="password" id='password' name='password' placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
               </div>
             </div>
 
