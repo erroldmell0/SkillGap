@@ -12,7 +12,6 @@ function zodToGeminiSchema(zodSchema) {
     const jsonSchema = z.toJSONSchema(zodSchema);
     return stripUnsupportedKeys(jsonSchema);
 }
-
 function stripUnsupportedKeys(obj) {
     if (typeof obj !== 'object' || obj === null) return obj;
     if (Array.isArray(obj)) return obj.map(stripUnsupportedKeys);
@@ -54,7 +53,7 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
                         Resume: ${resume}
                         Self Description: ${selfDescription}
                         Job Description: ${jobDescription}
-`
+    `
 
     const geminiSchema = zodToGeminiSchema(interviewReportSchema);
 
@@ -67,9 +66,7 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
         }
     })
 
-    console.log(response.text)
-
-
+    return JSON.parse(response.text)
 }   
 
 
