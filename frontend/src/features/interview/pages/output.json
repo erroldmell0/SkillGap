@@ -1,0 +1,129 @@
+{
+  "_id": {
+    "$oid": "69bd8e270d07a60bc07c56d2"
+  },
+  "jobDescription": "Role Overview:\nWe are inviting applications from Engineering Undergraduate and Masters’ students for a hands-on internship in Generative AI and\nAgentic AI engineering.\nInterns will work closely with EY AI Consulting Partners and senior engineers to design and develop real-world enterprise applications\nusing Agentic AI architectures. The internship will be conducted in a paired format, where two interns collaborate together under\nexpert guidance to solve challenging problems for financial services clients.\nThis internship offers a unique opportunity to build production-grade AI systems, not just academic prototypes.\nWhat You Will Work On:\nInterns will contribute to the design and development of Agentic AI solutions for financial services use cases, such as:\nIntelligent customer service agents for banks and NBFCs\n• AI copilots for credit underwriting and risk analysis\n• Autonomous document processing agents for loan operations\n• Financial advisory assistants powered by RAG architectures\n• AI-driven workflow automation for enterprise operations\nYou will build systems involving:\n• LLMs and Generative AI frameworks\n• Agentic AI orchestration\n• Retrieval-Augmented Generation (RAG)\n• Vector databases and embeddings\n• Enterprise AI integrations\nTechnologies You May Work With\nDepending on the project, interns may gain experience with:\nPython\nLangChain / LlamaIndex\nVector databases (FAISS, Milvus, Pinecone, Weaviate)\nCloud AI platforms (Google Cloud Vertex AI, Azure AI, AWS Bedrock)\nOpen-source models (Llama, Mistral, embedding models)\nEnterprise integration APIs\n\nInterns will write real production code and participate in solution design discussions with senior AI architects.\nKey Responsibilities\n• Develop Generative AI applications using modern LLM frameworks\n• Build Agentic AI pipelines and orchestration workflows\n• Implement RAG systems using enterprise data sources\n\n• Develop APIs and backend services supporting AI applications\n• Work on prompt engineering, evaluation, and guardrails\n• Collaborate with EY consultants to solve real business problems\n• Present working prototypes and technical demonstrations\nWhat Makes This Internship Unique\nUnlike traditional internships, this program is designed to provide deep hands-on exposure to real enterprise AI implementations.\nInterns will:\n• Work directly with EY AI Consulting leadership\n• Solve live client problems in financial services\n• Build production-grade Agentic AI applications\n• Gain exposure to enterprise AI architecture\n• Learn how AI is deployed at large global organizations\nThe internship follows a pair-engineering model, encouraging collaborative problem solving and rapid learning.\nStudents pursuing:\n• B.Tech / BE (Engineering Undergraduate)\n• M.Tech / MS in Computer Science, AI, Data Science, or related fields\nPreferred background:\n• Strong programming skills in Python\n• Interest in AI, machine learning, and LLMs\n• Familiarity with APIs, data structures, and backend development\n• Curiosity to explore emerging AI technologies\nIdeal Candidate:\nWe are looking for individuals who are:\n• Passionate about Artificial Intelligence\n• Strong problem solvers with a builder mindset\n• Comfortable experimenting with new technologies\n• Interested in applying AI to real business challenges\nWhat You Will Gain\nBy the end of this internship, you will have:\n• Built real enterprise Agentic AI applications\n• Learned how AI consulting projects operate\n• Gained exposure to large-scale financial services systems\n• Developed skills in production-grade AI engineering\nThis internship is ideal for students aspiring to build careers in:\n• Artificial Intelligence Engineering\n• Generative AI\n• AI Consulting\n• Enterprise AI Platforms\nIf you are excited about building the future of enterprise AI, we invite you to join EY and help create the next generation of Agentic\nAI systems transforming financial services.",
+  "resume": "Errol D’mello\n(+91) 9359669277 | erroldmello2005@icloud.com | ï LinkedIn | § GitHub | Ð LeetCode\nEducation\nDwarkadas J. Sanghvi College of Engineering Mumbai, India\nB.Tech in Computer Engineering + (Honours in Data Science): CGPA: 9.28 Aug 2023 – Present\nThomas Baptista Junior College Mumbai, India\nHigher Secondary Certificate: 92.83% Jun 2021 – Feb 2023\nSkills\nProgramming Languages: Java, Python, JavaScript, C, HTML, CSS\nFrameworks: React.js, Bootstrap, Tailwind CSS, Node.js, Express.js\nTools/Technologies: Git, GitHub, Mongoose, MongoDB, MySQL\nConcepts: Data Structures and Algorithms, OOPS, Operating Systems, Machine Learning\nExperience\nOrb AI | Frontend Developer Intern | Remote Feb 2026 – Present\n• Built a scalable frontend architecture using React.js, Vite, and Tailwind CSS with modular folder structure and\nreusable components, improving code maintainability and development speed.\n• Implemented a secure auth system using Axios and Zustand, ensuring seamless and reliable user sessions.\n• Integrated real-time dashboard features by replacing mock data with live API calls, enhancing user experience and\napplication stability.\nProjects\nLockr | link | React, Vite, Node.js, Express.js, MongoDB Jan 2026\n• Developed a full-stack web application for storing and managing user passwords.\n• Implemented Express APIs for MongoDB data delivery to the frontend.\n• Integrated MongoDB for persistent storage and utilized MongoDB Compass for database management.\n• Built a responsive frontend using React and Vite to ensure a smooth and efficient user experience.\nPersonal Portfolio Website | link | React, Vite, Tailwind CSS Jan 2026\n• Designed and developed a modern personal portfolio website to showcase projects and skills.\n• Built reusable and responsive UI components using React and Tailwind CSS for a clean and consistent design.\n• Optimized performance and development workflow using Vite for faster builds and hot module replacement.\n• Deployed the application on Vercel with continuous integration for seamless updates and accessibility.\nTextUtils | link | React, Bootstrap, Javascript Apr 2025\n• Developed a React-based text utility application that converts text to uppercase, lowercase, reversed text, and\nallows one-click copy functionality.\n• Implemented Dark Mode and Light Mode themes to enhance user experience and accessibility.\n• Provided real-time text analytics, including word count, character count, and estimated reading time.\nPositions of Responsibility\nDJS CodeStars Sep 2025 – Present\nCOMPS Department Representative\nDJS CodeStars Sep 2024 – Sep 2025\nTechnical Co-Committee Member\n• Collaborated with team members to organize a technical event, promoting coding skills and competitive\nprogramming.\nAchievements\n• Solved 500+ problems across LeetCode, Codeforces, and CodeChef.\n• Attained a 2 star rating (1400+) on CodeChef.\n• Scored 99.40 percentile in MHT-CET.\n• Consistently demonstrating academic excellence.\n\n-- 1 of 1 --\n\n",
+  "matchScore": 78,
+  "technicalQuestions": [
+    {
+      "question": "Since you have a strong background in Data Science and Python, can you explain the architectural difference between a standard RAG pipeline and an Agentic RAG system?",
+      "intention": "To assess if the candidate understands the shift from static retrieval to autonomous decision-making agents, which is the core of the job role.",
+      "answer": "The candidate should explain that standard RAG follows a linear path (Retrieve -> Augment -> Generate). In contrast, Agentic RAG uses an LLM as a reasoning engine to decide which tools to use, whether the retrieved information is sufficient, and if it needs to perform multi-step reasoning or iterative searches to answer complex queries."
+    },
+    {
+      "question": "You have solved over 500 problems on LeetCode. How do these algorithmic skills translate to optimizing the performance of an LLM-based application?",
+      "intention": "To evaluate the ability to apply theoretical computer science knowledge to practical AI engineering challenges like latency and token management.",
+      "answer": "Focus on how data structures (like priority queues for search) and algorithmic efficiency reduce latency. Mention that managing context windows is essentially a resource optimization problem and that vector similarity searches rely on efficient indexing (like HNSW) which stems from advanced tree/graph algorithms."
+    },
+    {
+      "question": "In your 'Lockr' project, you used MongoDB. If we were building a Financial Advisory Assistant, why might we choose a Vector Database over a traditional NoSQL database like MongoDB?",
+      "intention": "To check knowledge of Vector Databases and their necessity in Generative AI for semantic search versus keyword search.",
+      "answer": "Explain that while MongoDB is great for structured/unstructured storage, Vector Databases (like Pinecone or Milvus) store data as high-dimensional embeddings. This allows for 'semantic search'—finding information based on meaning rather than exact keyword matches, which is crucial for RAG-based financial assistants."
+    },
+    {
+      "question": "Python is a core requirement for this role. Can you explain how Python handles asynchronous tasks, and why 'asyncio' is important when building AI Agents that call multiple APIs?",
+      "intention": "To verify backend proficiency and understanding of I/O bound tasks common in Agentic workflows.",
+      "answer": "The candidate should discuss the event loop in Python and the use of 'async/await'. They should explain that AI agents often wait for multiple LLM responses or external API data; using asynchronous calls prevents the application from blocking, significantly improving the throughput of the agentic pipeline."
+    }
+  ],
+  "behavioralQuestions": [
+    {
+      "question": "This internship uses a 'paired format' where two interns collaborate. Describe a time you worked closely with a peer on a technical project. How did you handle disagreements on technical implementation?",
+      "intention": "To evaluate collaboration skills and fit for the specific 'pair-engineering' model mentioned in the JD.",
+      "answer": "Use the STAR method. Focus on a specific instance (perhaps during the DJS CodeStars events). Emphasize active listening, objective evaluation of pros/cons for each approach, and the ability to reach a consensus for the project's benefit."
+    },
+    {
+      "question": "The JD mentions moving from 'academic prototypes' to 'production-grade' systems. Give an example of how you ensured one of your personal projects was 'production-ready'.",
+      "intention": "To assess the 'builder mindset' and attention to detail regarding security, scalability, and error handling.",
+      "answer": "Talk about implementing secure authentication (like the Axios/Zustand system in the Orb AI internship), error boundaries in React, environment variable management, or CI/CD deployment on Vercel. Highlight that production code must handle edge cases, not just the 'happy path'."
+    }
+  ],
+  "skillGaps": [
+    {
+      "skill": "Generative AI Frameworks (LangChain/LlamaIndex)",
+      "severity": "high",
+      "_id": {
+        "$oid": "69bd8e270d07a60bc07c56d3"
+      }
+    },
+    {
+      "skill": "Vector Databases (FAISS, Pinecone, Weaviate)",
+      "severity": "high",
+      "_id": {
+        "$oid": "69bd8e270d07a60bc07c56d4"
+      }
+    },
+    {
+      "skill": "Agentic Orchestration Logic",
+      "severity": "high",
+      "_id": {
+        "$oid": "69bd8e270d07a60bc07c56d5"
+      }
+    },
+    {
+      "skill": "Cloud AI Platforms (Vertex AI/Azure AI)",
+      "severity": "medium",
+      "_id": {
+        "$oid": "69bd8e270d07a60bc07c56d6"
+      }
+    }
+  ],
+  "preparationPlan": [
+    {
+      "day": 1,
+      "focus": "LLM Fundamentals & Prompt Engineering",
+      "tasks": [
+        "Review the Transformer architecture basics and how LLMs predict tokens.",
+        "Practice advanced prompt engineering techniques (Chain of Thought, Few-shot prompting).",
+        "Read about the 'System Message' vs 'User Message' distinction in API calls."
+      ]
+    },
+    {
+      "day": 2,
+      "focus": "RAG & Vector Databases",
+      "tasks": [
+        "Learn the RAG workflow: Document Loading -> Splitting -> Embedding -> Vector Store -> Retrieval.",
+        "Set up a local instance of ChromaDB or use Pinecone free tier to index a few PDF documents.",
+        "Understand 'Cosine Similarity' and 'Euclidean Distance' in the context of embeddings."
+      ]
+    },
+    {
+      "day": 3,
+      "focus": "Agentic AI Frameworks (LangChain)",
+      "tasks": [
+        "Follow a tutorial to build a simple 'Math Agent' using LangChain's 'Tools' and 'Agents'.",
+        "Understand the concept of 'ReAct' (Reason + Act) prompting.",
+        "Explore 'LangGraph' for creating stateful, multi-agent workflows."
+      ]
+    },
+    {
+      "day": 4,
+      "focus": "Financial Services Use-Cases & Python Backend",
+      "tasks": [
+        "Research how AI is used in credit underwriting and KYC (Know Your Customer) processes.",
+        "Review FastAPI or Flask to understand how to wrap an AI agent into a deployable API.",
+        "Practice writing asynchronous Python code using 'httpx' or 'aiohttp'."
+      ]
+    },
+    {
+      "day": 5,
+      "focus": "Mock Interviews & Portfolio Alignment",
+      "tasks": [
+        "Prepare a walkthrough of the 'Lockr' project but focus on how you'd integrate an 'AI Security Auditor' into it.",
+        "Conduct a mock interview focusing on 'Pair Programming' scenarios and technical communication.",
+        "Review EY's recent AI news and their 'AI Lab' initiatives."
+      ]
+    }
+  ],
+  "user": {
+    "$oid": "69b8ee5fcbbc709c18c1da6c"
+  },
+  "createdAt": {
+    "$date": "2026-03-20T18:12:55.532Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-20T18:12:55.532Z"
+  },
+  "__v": 0
+}

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 import { useAuth } from "../../auth/hooks/useAuth"
-import "../home.scss"
+import "../styles/home.scss"
 
 const Home = () => {
   const { user } = useAuth()
