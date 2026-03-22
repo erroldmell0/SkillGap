@@ -78,19 +78,20 @@ const Home = () => {
 
       {/* Top navbar */}
       <nav className="home-nav">
-        {/* Hamburger button */}
-        <button
-          className={`hamburger-btn ${isPanelOpen ? "active" : ""}`}
-          onClick={() => setIsPanelOpen((prev) => !prev)}
-          aria-label="Toggle reports panel"
-          id="hamburger-toggle"
-        >
-          <span className="bar" />
-          <span className="bar" />
-          <span className="bar" />
-        </button>
-
-        <span className="nav-logo">SkillGap</span>
+        {/* Left group: hamburger + logo */}
+        <div className="nav-left">
+          <button
+            className={`hamburger-btn ${isPanelOpen ? "active" : ""}`}
+            onClick={() => setIsPanelOpen((prev) => !prev)}
+            aria-label="Toggle reports panel"
+            id="hamburger-toggle"
+          >
+            <span className="bar" />
+            <span className="bar" />
+            <span className="bar" />
+          </button>
+          <span className="nav-logo">SkillGap</span>
+        </div>
         <div className="nav-user">
           <div className="user-avatar">
             {user?.username?.charAt(0)?.toUpperCase() || "U"}
