@@ -1,17 +1,19 @@
 import { useState, useRef } from "react"
 import { useAuth } from "../../auth/hooks/useAuth"
 import { useInterview } from "../hooks/useInterview"
-import {useNavigate} from "react-router"
+import { useNavigate } from "react-router"
+import Leftpanel from "./Leftpanel"
 import "../styles/home.scss"
 
 const Home = () => {
   const { user } = useAuth()
-  const {generateReport, loading} = useInterview()
+  const {generateReport, loading, reports} = useInterview()
   const navigate = useNavigate()
   const [jobDescription, setJobDescription] = useState("")
   const [selfDescription, setSelfDescription] = useState("")
   const [resumeFile, setResumeFile] = useState(null)
   const [isDragging, setIsDragging] = useState(false)
+  const [isPanelOpen, setIsPanelOpen] = useState(false)
   const resumeInputRef = useRef(null)
 
   const handleDragOver = (e) => {
@@ -67,8 +69,27 @@ const Home = () => {
         <div className="bg-shape shape-5"></div>
       </div>
 
+      {/* Left panel */}
+      <Leftpanel
+        isOpen={isPanelOpen}
+        onClose={() => setIsPanelOpen(false)}
+        reports={reports}
+      />
+
       {/* Top navbar */}
       <nav className="home-nav">
+        {/* Hamburger button */}
+        <button
+          className={`hamburger-btn ${isPanelOpen ? "active" : ""}`}
+          onClick={() => setIsPanelOpen((prev) => !prev)}
+          aria-label="Toggle reports panel"
+          id="hamburger-toggle"
+        >
+          <span className="bar" />
+          <span className="bar" />
+          <span className="bar" />
+        </button>
+
         <span className="nav-logo">SkillGap</span>
         <div className="nav-user">
           <div className="user-avatar">
@@ -205,6 +226,7 @@ const Home = () => {
           </button>
         </form>
       </div>
+
     </main>
   )
 }

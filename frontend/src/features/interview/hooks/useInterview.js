@@ -53,12 +53,10 @@ export const useInterview = () => {
     }
 
     useEffect(() => {
-        if (interviewId !== undefined) {
-            if (interviewId) {
-                getReportById(interviewId)
-            } else {
-                getAllReports()
-            }
+        if (interviewId) {
+            getReportById(interviewId)
+        } else {
+            getAllReports()
         }
     }, [interviewId])
 
