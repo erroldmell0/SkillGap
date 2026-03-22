@@ -82,6 +82,8 @@ const Leftpanel = ({ isOpen, onClose, reports }) => {
           </div>
         )}
       </aside>
+
+      
     </>
   )
 }

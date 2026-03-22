@@ -6,7 +6,7 @@ import Leftpanel from "./Leftpanel"
 import "../styles/home.scss"
 
 const Home = () => {
-  const { user } = useAuth()
+  const { user, handleLogout } = useAuth()
   const {generateReport, loading, reports} = useInterview()
   const navigate = useNavigate()
   const [jobDescription, setJobDescription] = useState("")
@@ -15,6 +15,10 @@ const Home = () => {
   const [isDragging, setIsDragging] = useState(false)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const resumeInputRef = useRef(null)
+
+  const handleLogoutClick = () => {
+    handleLogout()
+  }
 
   const handleDragOver = (e) => {
     e.preventDefault()
@@ -91,6 +95,12 @@ const Home = () => {
             <span className="bar" />
           </button>
           <span className="nav-logo">SkillGap</span>
+        </div>
+        {/* Logout button */}
+        <div className="nav-right">
+          <button className="logout-btn" onClick={handleLogoutClick}>
+            logout
+          </button>
         </div>
         <div className="nav-user">
           <div className="user-avatar">
