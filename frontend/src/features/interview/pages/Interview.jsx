@@ -1,16 +1,29 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router"
 import { useAuth } from "../../auth/hooks/useAuth"
 import "../styles/interview.scss"
-
-// Placeholder data — replace with API call using interviewId
-import sampleData from "./output.json"
+import {useInterview} from "../hooks/useInterview"
+import { useParams } from "react-router"
 
 const Interview = () => {
   const { user } = useAuth()
   const [activeTab, setActiveTab] = useState("technical")
+  const {report, getReportById, loading} = useInterview()
+  const {interviewId} = useParams()
 
-  const data = sampleData
+  useEffect(() => {
+    if(interviewId) {
+      getReportById(interviewId)
+    }
+  }, [interviewId])
+
+  if(loading || !report) {
+    return (
+      <main>
+        <div>Loading your interview report...</div>
+      </main>
+    )
+  }
 
   const tabs = [
     {
@@ -22,7 +35,7 @@ const Interview = () => {
           <polyline points="8 6 2 12 8 18" />
         </svg>
       ),
-      count: data.technicalQuestions.length,
+      count: report.technicalQuestions.length,
     },
     {
       id: "behavioral",
@@ -35,7 +48,7 @@ const Interview = () => {
           <path d="M16 3.13a4 4 0 0 1 0 7.75" />
         </svg>
       ),
-      count: data.behavioralQuestions.length,
+      count: report.behavioralQuestions.length,
     },
     {
       id: "roadmap",
@@ -47,7 +60,7 @@ const Interview = () => {
           <path d="M6 20v-6" />
         </svg>
       ),
-      count: data.preparationPlan.length + " days",
+      count: report.preparationPlan.length + " days",
     },
   ]
 
@@ -76,7 +89,7 @@ const Interview = () => {
               <p className="section-desc">Prepare answers for these role-specific technical questions</p>
             </div>
             <div className="questions-list">
-              {data.technicalQuestions.map((q, i) => (
+              {report.technicalQuestions.map((q, i) => (
                 <div className="question-card" key={i}>
                   <div className="question-number">Q{i + 1}</div>
                   <div className="question-body">
@@ -119,7 +132,7 @@ const Interview = () => {
               <p className="section-desc">Practice these situational and behavioral interview questions</p>
             </div>
             <div className="questions-list">
-              {data.behavioralQuestions.map((q, i) => (
+              {report.behavioralQuestions.map((q, i) => (
                 <div className="question-card" key={i}>
                   <div className="question-number">Q{i + 1}</div>
                   <div className="question-body">
@@ -162,11 +175,11 @@ const Interview = () => {
               <p className="section-desc">Follow this day-by-day plan to prepare for your interview</p>
             </div>
             <div className="roadmap-timeline">
-              {data.preparationPlan.map((day, i) => (
+              {report.preparationPlan.map((day, i) => (
                 <div className="roadmap-day" key={i}>
                   <div className="day-marker">
                     <div className="day-dot"></div>
-                    {i < data.preparationPlan.length - 1 && <div className="day-line"></div>}
+                    {i < report.preparationPlan.length - 1 && <div className="day-line"></div>}
                   </div>
                   <div className="day-content">
                     <div className="day-header">
@@ -230,7 +243,8 @@ const Interview = () => {
         {/* Left sidebar — Navigation tabs */}
         <aside className="interview-sidebar">
           <div className="sidebar-header">
-            <h3>Interview Prep</h3>
+            <h3>Interview Prep: </h3>
+            <h3>{report.title}</h3>
             <p>Your personalized report</p>
           </div>
           <nav className="sidebar-nav">
@@ -267,18 +281,18 @@ const Interview = () => {
                   cy="60"
                   r="52"
                   style={{
-                    strokeDasharray: `${(data.matchScore / 100) * 327} 327`,
-                    stroke: getScoreColor(data.matchScore),
+                    strokeDasharray: `${(report.matchScore / 100) * 327} 327`,
+                    stroke: getScoreColor(report.matchScore),
                   }}
                 />
               </svg>
               <div className="score-value">
-                <span className="score-number">{data.matchScore}</span>
+                <span className="score-number">{report.matchScore}</span>
                 <span className="score-percent">%</span>
               </div>
             </div>
             <p className="score-label">
-              {data.matchScore >= 80 ? "Strong Match" : data.matchScore >= 60 ? "Good Match" : "Needs Work"}
+              {report.matchScore >= 80 ? "Strong Match" : report.matchScore >= 60 ? "Good Match" : "Needs Work"}
             </p>
           </div>
 
@@ -286,7 +300,7 @@ const Interview = () => {
           <div className="stats-card gaps-card">
             <h3 className="stats-title">Skill Gaps</h3>
             <div className="gaps-list">
-              {data.skillGaps.map((gap, i) => (
+              {report.skillGaps.map((gap, i) => (
                 <div className="gap-item" key={i}>
                   <div className="gap-info">
                     <span className="gap-name">{gap.skill}</span>
@@ -307,19 +321,19 @@ const Interview = () => {
             <h3 className="stats-title">Overview</h3>
             <div className="quick-grid">
               <div className="quick-item">
-                <span className="quick-value">{data.technicalQuestions.length}</span>
+                <span className="quick-value">{report.technicalQuestions.length}</span>
                 <span className="quick-label">Technical Q's</span>
               </div>
               <div className="quick-item">
-                <span className="quick-value">{data.behavioralQuestions.length}</span>
+                <span className="quick-value">{report.behavioralQuestions.length}</span>
                 <span className="quick-label">Behavioral Q's</span>
               </div>
               <div className="quick-item">
-                <span className="quick-value">{data.skillGaps.length}</span>
+                <span className="quick-value">{report.skillGaps.length}</span>
                 <span className="quick-label">Skill Gaps</span>
               </div>
               <div className="quick-item">
-                <span className="quick-value">{data.preparationPlan.length}</span>
+                <span className="quick-value">{report.preparationPlan.length}</span>
                 <span className="quick-label">Prep Days</span>
               </div>
             </div>

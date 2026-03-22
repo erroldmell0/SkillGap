@@ -1,24 +1,26 @@
 import { useState, useRef } from "react"
 import { useAuth } from "../../auth/hooks/useAuth"
+import { useInterview } from "../hooks/useInterview"
+import {useNavigate} from "react-router"
 import "../styles/home.scss"
 
 const Home = () => {
   const { user } = useAuth()
+  const {generateReport, loading} = useInterview()
+  const navigate = useNavigate()
   const [jobDescription, setJobDescription] = useState("")
   const [selfDescription, setSelfDescription] = useState("")
   const [resumeFile, setResumeFile] = useState(null)
   const [isDragging, setIsDragging] = useState(false)
-  const fileInputRef = useRef(null)
+  const resumeInputRef = useRef(null)
 
   const handleDragOver = (e) => {
     e.preventDefault()
     setIsDragging(true)
   }
-
   const handleDragLeave = () => {
     setIsDragging(false)
   }
-
   const handleDrop = (e) => {
     e.preventDefault()
     setIsDragging(false)
@@ -27,14 +29,12 @@ const Home = () => {
       setResumeFile(file)
     }
   }
-
   const handleFileChange = (e) => {
     const file = e.target.files[0]
     if (file) {
       setResumeFile(file)
     }
   }
-
   const handleRemoveFile = () => {
     setResumeFile(null)
     if (fileInputRef.current) {
@@ -42,9 +42,18 @@ const Home = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: submit logic
+    const data = await generateReport({resumeFile, selfDescription, jobDescription})
+    navigate(`/interview/${data.interviewId}`)
+  }
+
+  if(loading) {
+    return (
+      <main>
+        <div>Loading your interview plan...</div>
+      </main>
+    )
   }
 
   return (
@@ -120,9 +129,9 @@ const Home = () => {
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
                   onDrop={handleDrop}
-                  onClick={() => !resumeFile && fileInputRef.current?.click()}
+                  onClick={() => !resumeFile && resumeInputRef.current?.click()}
                 >
-                  <input type="file" name="resume" id="resume" accept=".pdf" ref={fileInputRef} onChange={handleFileChange} hidden />
+                  <input type="file" name="resume" id="resume" accept=".pdf" ref={resumeInputRef} onChange={handleFileChange} hidden />
                   {resumeFile ? (
                     <div className="file-info">
                       <div className="file-icon">
