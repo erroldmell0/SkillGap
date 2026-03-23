@@ -52,7 +52,9 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = await generateReport({resumeFile, selfDescription, jobDescription})
-    navigate(`/interview/${data.interviewId}`)
+    if (data?._id) {
+      navigate(`/interview/${data._id}`)
+    }
   }
 
   if(loading) {
