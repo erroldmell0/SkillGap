@@ -3,6 +3,7 @@ import { useState } from "react"
 import Leftpanel from "./Leftpanel"
 import "../auth.form.scss"
 import { useAuth } from "../hooks/useAuth"
+import Loading from "../../landing/pages/Loading"
 
 
 const Register = () => {
@@ -21,7 +22,7 @@ const Register = () => {
   }
 
   if(loading) {
-    return (<main><h1>Loading...</h1></main>)
+    return (<Loading/>)
   }
 
   return (

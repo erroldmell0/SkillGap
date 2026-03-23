@@ -4,6 +4,7 @@ import { useAuth } from "../../auth/hooks/useAuth"
 import "../styles/interview.scss"
 import {useInterview} from "../hooks/useInterview"
 import { useParams } from "react-router"
+import Loading from "../../landing/pages/Loading"
 
 const Interview = () => {
   const { user } = useAuth()
@@ -19,9 +20,7 @@ const Interview = () => {
 
   if(loading || !report) {
     return (
-      <main>
-        <div>Loading your interview report...</div>
-      </main>
+      <Loading/>
     )
   }
 

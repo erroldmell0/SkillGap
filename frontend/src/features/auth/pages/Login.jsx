@@ -3,6 +3,7 @@ import "../auth.form.scss"
 import Leftpanel from "./Leftpanel"
 import { useAuth } from "../hooks/useAuth"
 import { useState } from "react"
+import Loading from "../../landing/pages/Loading"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ const Login = () => {
   }
 
   if(loading) {
-    return (<main><h1>Loading...</h1></main>)
+    return <Loading/>
   }
 
   return (

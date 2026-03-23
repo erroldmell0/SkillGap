@@ -3,6 +3,7 @@ import { useAuth } from "../../auth/hooks/useAuth"
 import { useInterview } from "../hooks/useInterview"
 import { useNavigate } from "react-router"
 import Leftpanel from "./Leftpanel"
+import Loading from "../../landing/pages/Loading"
 import "../styles/home.scss"
 
 const Home = () => {
@@ -56,9 +57,7 @@ const Home = () => {
 
   if(loading) {
     return (
-      <main>
-        <div>Loading your interview plan...</div>
-      </main>
+      <Loading message="Generating your interview plan..." />
     )
   }
 
