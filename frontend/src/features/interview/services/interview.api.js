@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL:"http://localhost:3000",
+    baseURL:"https://backend-skill-gap.onrender.com",
     withCredentials: true
 })
 
@@ -14,7 +14,7 @@ export const generateInterviewReport = async ({resumeFile, selfDescription, jobD
     formData.append("selfDescription", selfDescription)
     formData.append("jobDescription", jobDescription)
 
-    const response = await api.post("api/interview/", formData, {
+    const response = await api.post("/api/interview/", formData, {
         headers: {
             "Content-Type": "multipart/form-data"
         }
@@ -27,7 +27,7 @@ export const generateInterviewReport = async ({resumeFile, selfDescription, jobD
  * @description Get interview report by interview Id
  */
 export const getInterviewReportById = async (interviewId) => {
-    const response = await api.get(`api/interview/report/${interviewId}`)
+    const response = await api.get(`/api/interview/report/${interviewId}`)
     return response.data
 }
 
@@ -35,6 +35,6 @@ export const getInterviewReportById = async (interviewId) => {
  * @description Get all interview reports
  */
 export const getAllInterviewReports = async () => {
-    const response = await api.get("api/interview/")
+    const response = await api.get("/api/interview/")
     return response.data
 }
