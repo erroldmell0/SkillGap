@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cookieParser());
 const allowedOrigins = [
     'http://localhost:5173',
-    'https://skill-gap.vercel.app', // replace with your actual deployed frontend URL
+    'https://skill-gap-theta.vercel.app', 
 ]
 
 app.use(cors({
