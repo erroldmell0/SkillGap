@@ -5,8 +5,20 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://skill-gap.vercel.app', // replace with your actual deployed frontend URL
+]
+
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: function (origin, callback) {
+        // allow requests with no origin (e.g. mobile apps, curl)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
     credentials: true
 }))
 
