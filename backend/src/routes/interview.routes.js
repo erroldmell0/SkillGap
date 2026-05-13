@@ -5,12 +5,26 @@ const upload = require("../middlewares/file.middleware")
 
 const interviewRouter = express.Router();
 
+const uploadResume = (req, res, next) => {
+    upload.single("resume")(req, res, (err) => {
+        if (err) {
+            if (err.code === "LIMIT_FILE_SIZE") {
+                return res.status(400).json({message: "Resume must be smaller than 3 MB"});
+            }
+
+            return res.status(400).json({message: "Please upload a valid PDF resume"});
+        }
+
+        next();
+    });
+};
+
 /**
  * @route Post api/interview/
  * @description generate new interview report based on the users self description, resume and job description
  * @access Private
  */
-interviewRouter.post('/', authMiddleware.authUser, upload.single("resume"), interviewController.generateInterviewReportController)
+interviewRouter.post('/', authMiddleware.authUser, uploadResume, interviewController.generateInterviewReportController)
 
 /**
  * @route Get api/interview/report/:interviewId

@@ -6,21 +6,46 @@ const interviewReportModel = require("../models/interviewReport.model")
  * @description Controller to generate interview report based on user self description, resume and job description
  */
 async function generateInterviewReportController(req, res) {
+    const {selfDescription = "", jobDescription} = req.body;
 
-    const resumeContent = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
-    const {selfDescription, jobDescription} = req.body;
+    if (!jobDescription?.trim()) {
+        return res.status(400).json({message: "Job description is required"});
+    }
 
-    const interviewReportByAi = await generateInterviewReport({
-        resume: resumeContent.text, 
-        selfDescription, 
-        jobDescription
-    })
+    if (!req.file?.buffer) {
+        return res.status(400).json({message: "Resume PDF is required"});
+    }
+
+    let resumeContent;
+
+    try {
+        resumeContent = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
+    } catch (error) {
+        return res.status(400).json({message: "Could not read the uploaded PDF. Please upload a valid resume PDF."});
+    }
+
+    if (!resumeContent.text?.trim()) {
+        return res.status(400).json({message: "Could not find readable text in the uploaded resume PDF"});
+    }
+
+    let interviewReportByAi;
+
+    try {
+        interviewReportByAi = await generateInterviewReport({
+            resume: resumeContent.text, 
+            selfDescription: selfDescription.trim(), 
+            jobDescription: jobDescription.trim()
+        })
+    } catch (error) {
+        console.error("Failed to generate interview report:", error);
+        return res.status(502).json({message: "Could not generate the interview report right now. Please try again."});
+    }
 
     const interviewReport = await interviewReportModel.create({
         user: req.user.id,
         resume: resumeContent.text,
-        selfDescription,
-        jobDescription,
+        selfDescription: selfDescription.trim(),
+        jobDescription: jobDescription.trim(),
         ...interviewReportByAi
     })
         

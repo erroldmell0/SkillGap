@@ -13,9 +13,31 @@ const Home = () => {
   const [jobDescription, setJobDescription] = useState("")
   const [selfDescription, setSelfDescription] = useState("")
   const [resumeFile, setResumeFile] = useState(null)
+  const [formError, setFormError] = useState("")
   const [isDragging, setIsDragging] = useState(false)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const resumeInputRef = useRef(null)
+  const maxResumeSize = 3 * 1024 * 1024
+
+  const setResumeIfValid = (file) => {
+    setFormError("")
+
+    if (!file) return
+
+    if (file.type !== "application/pdf") {
+      setResumeFile(null)
+      setFormError("Please upload your resume as a PDF.")
+      return
+    }
+
+    if (file.size > maxResumeSize) {
+      setResumeFile(null)
+      setFormError("Resume must be smaller than 3 MB.")
+      return
+    }
+
+    setResumeFile(file)
+  }
 
   const handleLogoutClick = () => {
     handleLogout()
@@ -32,28 +54,45 @@ const Home = () => {
     e.preventDefault()
     setIsDragging(false)
     const file = e.dataTransfer.files[0]
-    if (file && file.type === "application/pdf") {
-      setResumeFile(file)
-    }
+    setResumeIfValid(file)
   }
   const handleFileChange = (e) => {
     const file = e.target.files[0]
-    if (file) {
-      setResumeFile(file)
-    }
+    setResumeIfValid(file)
   }
   const handleRemoveFile = () => {
     setResumeFile(null)
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ""
+    setFormError("")
+    if (resumeInputRef.current) {
+      resumeInputRef.current.value = ""
     }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const data = await generateReport({resumeFile, selfDescription, jobDescription})
-    if (data?._id) {
-      navigate(`/interview/${data._id}`)
+    setFormError("")
+
+    if (!jobDescription.trim()) {
+      setFormError("Paste the job description before generating a report.")
+      return
+    }
+
+    if (!resumeFile) {
+      setFormError("Upload a PDF resume before generating a report.")
+      return
+    }
+
+    try {
+      const data = await generateReport({
+        resumeFile,
+        selfDescription: selfDescription.trim(),
+        jobDescription: jobDescription.trim()
+      })
+      if (data?._id) {
+        navigate(`/interview/${data._id}`)
+      }
+    } catch (error) {
+      setFormError(error.message || "Could not generate the report. Please try again.")
     }
   }
 
@@ -228,6 +267,12 @@ const Home = () => {
             </svg>
             <span>For best results, provide <strong>both</strong> your resume and a self-description alongside the job listing.</span>
           </div>
+
+          {formError && (
+            <div className="home-error" role="alert">
+              <span>{formError}</span>
+            </div>
+          )}
 
           {/* Submit button */}
           <button className="home-submit-btn" type="submit">
