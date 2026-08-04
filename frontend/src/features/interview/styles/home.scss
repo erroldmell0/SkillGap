@@ -170,6 +170,9 @@
 .user-name {
     @include b.stamp(0.7rem);
     color: var(--ink-2);
+    // The 0.14em tracking from stamp() swallows the gap between words, so a
+    // two-word username reads as one run. Widen the word gap to compensate.
+    word-spacing: 0.5em;
 }
 
 /* ---- Content ---- */

@@ -124,6 +124,8 @@
     .user-name {
         @include b.stamp(0.7rem);
         color: var(--ink-2);
+        // Match the home nav: stamp() tracking otherwise closes the word gap.
+        word-spacing: 0.5em;
     }
 }
 
