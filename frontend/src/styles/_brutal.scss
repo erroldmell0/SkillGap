@@ -1,0 +1,100 @@
+/* ============================================================
+   SkillGap — shared brutalist mixins.
+   Tokens live as CSS custom properties in src/style.scss;
+   this file only carries reusable declaration blocks.
+   ============================================================ */
+
+/* Flat panel with a hard rule and an offset shadow */
+@mixin slab($bg: var(--surface), $shadow: var(--shadow)) {
+    background: $bg;
+    border: var(--bw) solid var(--line);
+    box-shadow: $shadow;
+    border-radius: 0;
+}
+
+/* Small uppercase mono label — eyebrows, counts, meta */
+@mixin stamp($size: 0.68rem) {
+    font-family: var(--font-mono);
+    font-size: $size;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+/* Control that physically depresses into its own shadow */
+@mixin push($offset: 5) {
+    transition: transform 90ms ease, box-shadow 90ms ease, background 120ms ease,
+        color 120ms ease;
+
+    &:hover {
+        transform: translate(-1px, -1px);
+        box-shadow: #{$offset + 1}px #{$offset + 1}px 0 var(--ink);
+    }
+
+    &:active {
+        transform: translate(#{$offset - 1}px, #{$offset - 1}px);
+        box-shadow: var(--shadow-press);
+    }
+}
+
+/* Solid ink button */
+@mixin btn-solid {
+    background: var(--ink);
+    color: var(--ink-invert);
+    border: var(--bw) solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    @include push(5);
+}
+
+/* Outlined button on paper */
+@mixin btn-ghost {
+    background: var(--surface);
+    color: var(--ink);
+    border: var(--bw) solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    @include push(5);
+
+    &:hover {
+        background: var(--surface-2);
+    }
+}
+
+/* Section heading rule: title sits on a thick underline */
+@mixin ruled-heading {
+    border-bottom: var(--bw-thick) solid var(--line);
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.4rem;
+}
+
+/* Inputs and textareas */
+@mixin field {
+    width: 100%;
+    background: var(--surface);
+    border: var(--bw) solid var(--line);
+    border-radius: 0;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 0.85rem 0.9rem;
+    transition: box-shadow 90ms ease, background 120ms ease;
+
+    &::placeholder {
+        color: var(--ink-3);
+    }
+
+    &:focus {
+        outline: none;
+        background: #fff;
+        box-shadow: var(--shadow-sm);
+    }
+}
