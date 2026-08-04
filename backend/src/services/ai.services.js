@@ -48,13 +48,20 @@ const interviewReportSchema = z.object({
     title: z.string().describe("The title of the job for which the interview report is generated"),
 })
 
-async function generateInterviewReport({ resume, selfDescription, jobDescription }) {
-    const prompt = `Generate an interview report for a candidate with the following details:
+// Backup provider: Groq (OpenAI-compatible chat completions).
+// Used only when the primary Gemini call fails — quota, outage, bad key, etc.
+const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
+const GROQ_MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+
+function buildPrompt({ resume, selfDescription, jobDescription }) {
+    return `Generate an interview report for a candidate with the following details:
                         Resume: ${resume}
                         Self Description: ${selfDescription}
                         Job Description: ${jobDescription}
     `
+}
 
+async function generateWithGemini(prompt) {
     const geminiSchema = zodToGeminiSchema(interviewReportSchema);
 
     const response = await ai.models.generateContent({
@@ -67,7 +74,74 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
     })
 
     return JSON.parse(response.text)
-}   
+}
+
+async function generateWithGroq(prompt) {
+    if (!process.env.GROQ_API_KEY) {
+        throw new Error("GROQ_API_KEY is not set, no backup provider available");
+    }
+
+    // Groq is not schema-constrained the way Gemini is, so the schema goes in the
+    // prompt and the result is validated against Zod before it is returned.
+    const jsonSchema = z.toJSONSchema(interviewReportSchema);
+
+    const response = await fetch(GROQ_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+        },
+        body: JSON.stringify({
+            model: GROQ_MODEL,
+            temperature: 0.3,
+            response_format: { type: "json_object" },
+            messages: [
+                {
+                    role: "system",
+                    content: `You are an interview preparation assistant. Reply with a single JSON object and nothing else. It must conform exactly to this JSON schema:\n${JSON.stringify(jsonSchema)}`
+                },
+                { role: "user", content: prompt }
+            ]
+        })
+    })
+
+    if (!response.ok) {
+        const body = await response.text();
+        throw new Error(`Groq request failed (${response.status}): ${body}`);
+    }
+
+    const data = await response.json();
+    const content = data?.choices?.[0]?.message?.content;
+
+    if (!content) {
+        throw new Error("Groq returned an empty completion");
+    }
+
+    const parsed = interviewReportSchema.safeParse(JSON.parse(content));
+
+    if (!parsed.success) {
+        throw new Error(`Groq returned a report that does not match the schema: ${parsed.error.message}`);
+    }
+
+    return parsed.data;
+}
+
+async function generateInterviewReport({ resume, selfDescription, jobDescription }) {
+    const prompt = buildPrompt({ resume, selfDescription, jobDescription });
+
+    try {
+        return await generateWithGemini(prompt);
+    } catch (geminiError) {
+        console.error("Gemini failed, falling back to Groq:", geminiError.message);
+
+        try {
+            return await generateWithGroq(prompt);
+        } catch (groqError) {
+            console.error("Groq backup also failed:", groqError.message);
+            throw geminiError;
+        }
+    }
+}
 
 
 module.exports = {generateInterviewReport};
