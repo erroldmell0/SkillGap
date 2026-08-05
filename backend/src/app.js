@@ -26,6 +26,11 @@ app.use(cors({
 const authRouter = require('./routes/auth.routes')
 const interviewRouter = require('./routes/interview.routes')
 
+// health check route
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'ok', uptime: process.uptime(), timestamp: Date.now() });
+});
+
 // using all the routes here 
 app.use('/api/auth', authRouter)
 app.use('/api/interview', interviewRouter)
