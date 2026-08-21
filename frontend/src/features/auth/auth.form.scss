@@ -187,25 +187,36 @@ form {
         padding-left: 2.65rem;
     }
 
+    // keep the typed value clear of the reveal button
+    &.has-reveal input {
+        padding-right: 2.9rem;
+    }
+
+    .reveal-toggle {
+        position: absolute;
+        right: 0.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.35rem;
+        background: none;
+        border: none;
+        color: var(--ink-3);
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+            color: var(--ink);
+        }
+
+        &:focus-visible {
+            outline: var(--bw) solid var(--line);
+            outline-offset: 0;
+        }
+    }
+
     &:focus-within .input-icon {
         color: var(--ink);
-    }
-}
-
-.form-options {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -0.35rem;
-}
-
-.forgot-link {
-    @include b.stamp(0.64rem);
-    color: var(--ink-2);
-    border-bottom: var(--bw) solid var(--line);
-
-    &:hover {
-        background: var(--ink);
-        color: var(--ink-invert);
     }
 }
 

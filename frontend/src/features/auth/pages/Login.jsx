@@ -4,6 +4,7 @@ import Leftpanel from "./Leftpanel"
 import { useAuth } from "../hooks/useAuth"
 import { useState } from "react"
 import Loading from "../../landing/pages/Loading"
+import PasswordInput from "../components/PasswordInput"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -49,17 +50,7 @@ const Login = () => {
 
             <div className='input-group'>
               <label htmlFor='password'>Password</label>
-              <div className="input-wrapper">
-                <svg className="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                </svg>
-                <input type="password" id='password' name='password' placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
-              </div>
-            </div>
-
-            <div className="form-options">
-              <a href="#" className="forgot-link">Forgot password?</a>
+              <PasswordInput placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
             </div>
 
             <button className="button primary-button" type="submit">Sign In</button>
