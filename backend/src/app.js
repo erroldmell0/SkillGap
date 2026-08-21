@@ -5,18 +5,25 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+
+const stripSlash = (url) => url.trim().replace(/\/+$/, '')
+
+// extra origins can be added from the host without a redeploy: CLIENT_URL=https://a.app,https://b.app
 const allowedOrigins = [
     'http://localhost:5173',
-    'https://skill-gap-theta.vercel.app', 
+    'https://errol-skillgap.vercel.app',
+    ...(process.env.CLIENT_URL || '').split(',').map(stripSlash).filter(Boolean),
 ]
 
 app.use(cors({
     origin: function (origin, callback) {
         // allow requests with no origin (e.g. mobile apps, curl)
-        if (!origin || allowedOrigins.includes(origin)) {
+        if (!origin || allowedOrigins.includes(stripSlash(origin))) {
             callback(null, true)
         } else {
-            callback(new Error('Not allowed by CORS'))
+            // refusing without throwing, otherwise express answers 500 instead of
+            // just leaving the header off and letting the browser block it
+            callback(null, false)
         }
     },
     credentials: true
